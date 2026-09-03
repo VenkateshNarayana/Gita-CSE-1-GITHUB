@@ -16,8 +16,10 @@ step4 : store the (r,c,v) in the triplet matrix for all the non zero elements pr
 void convert_sparse_to_triplet(int [][5],int [][3]);//param1=sparse matrix , param2 = triplet matrix
 void display_matrix_from_triplet(int[][3]);//param1=triplet matrix
 void get_input_from_user_for_sparse(int[][5],int,int);
+int get_element_from_triplet(int[][3],int,int);
 void display_triplet_matrix(int[][3],int,int);//param1=triplet matrix 2d name;param2=rows of triplet matrix param3=cols of triplet matrix
 void display_2d_matrix(int[][5],int,int);
+
 int main(){
 	int sparse_mat1[][5]={
 						    {0,0,3,0,4},
