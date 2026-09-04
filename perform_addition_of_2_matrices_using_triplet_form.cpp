@@ -1,10 +1,29 @@
 /* perform Addtion of 2 matrices using triplet form
-Algorithm
-Step1: Create a triplet trans matrix with row = (non zero count from header row of original triplet) + 1(header row)
-      : col = 3 (to store r,c,v)
-Step2: populate the triplet trans matrix with values swapped for col1 and col2. keep the col3 values unchanged
-Step3: display the triplet
-Step4: display the sparse from the triplet
+Algorithm- Perform matric addition addition
+//step1 : check if rows and cols of matrix 1 are same as rows and cols of matrix 2, if not then addition cannot be performed
+
+//step2: create the result_mat[r=?][c=?]
+//step3: populate the header row
+//step4: populate the result matrix by perform addition(matrix 1 with matrix 2)
+	//case1: if rows & cols are same then we add only entry with 
+		//r = mat1 row 
+		//c = mat1 col
+		//v = value of mat1 + value mat2
+	//case2: if rows are same but cols are different 
+		// then we add first entry col is less 
+		//r = mat1 row  (if row of mat1 is less than row of mat2)
+		//c = mat1 col (if row of mat1 is less than row of mat2)
+		//v = value of mat1 (if row of mat1 is less than row of mat2)
+	//case3: if rows & cols are different 
+		// then we add first entry row is less
+		//r = mat1 row (if row of mat1 is less than row of mat2)
+		//c = mat1 col (if row of mat1 is less than row of mat2)
+		//v = value of mat1 (if row of mat1 is less than row of mat2)
+//step5:A) add any leftover from matA add it to result matrix
+		B) add any leftover from matB add it to result matrix
+//step6: display the triplet
+//step7: display sparse from triplet
+
 */
 #include<stdio.h>
 void display_triplet_matrix(int[][3]);
