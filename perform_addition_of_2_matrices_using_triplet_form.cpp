@@ -11,9 +11,9 @@ Algorithm- Perform matric addition addition
 		//v = value of mat1 + value mat2
 	//case2: if rows are same but cols are different 
 		// then we add first entry col is less 
-		//r = mat1 row  (if row of mat1 is less than row of mat2)
-		//c = mat1 col (if row of mat1 is less than row of mat2)
-		//v = value of mat1 (if row of mat1 is less than row of mat2)
+		//r = mat1 row  (if col of mat1 is less than col of mat2)
+		//c = mat1 col (if col of mat1 is less than col of mat2)
+		//v = value of mat1 (if col of mat1 is less than col of mat2)
 	//case3: if rows & cols are different 
 		// then we add first entry row is less
 		//r = mat1 row (if row of mat1 is less than row of mat2)
