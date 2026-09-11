@@ -10,10 +10,10 @@ step6 : End of input  then check if stack is not empty then pop all remaining op
 
 */
 #include<stdio.h>
-#define MAX_SIZE 5
+#define MAX_SIZE 20
 int top = -1; //current index tracker
 
-void push(int[],int); //param1:array name ;param2:value
+void push(int[],int); //param1:array name ;param2:valuea
 void traverse(int[]); //param1:array name
 int is_full();        //return 1 if its full else 0
 int is_empty();       //return 1 if its empty else 0
@@ -23,7 +23,7 @@ int pop(int[]);       //param1:array name
 int operator_precedence(char oper);
 int main(){
 	int stack[MAX_SIZE]={0};//declare and initialize to zero with size as MAX_SIZE
-	char infix[20] = "(2+3*4)"; //infix expression
+	char infix[20] = "(2+3)*(4-1)"; //infix expression
 	char postfix[20]= ""; //empty string
 	int i=0, k=0,pop_item,peek_item; //use i for tracking characters of infix and k for tracking characters in postfix
 	//step1 : read infix expression from left to right
