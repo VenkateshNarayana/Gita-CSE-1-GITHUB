@@ -20,7 +20,7 @@ int pop(int[]);       //param1:array name
 
 int main(){
 	int stack[MAX_SIZE]={0};//declare and initialize to zero with size as MAX_SIZE
-	char postfix[20]= "23+41-*"; //empty string
+	char postfix[20]= "23+41-*"; //postfix expression
 	int result = 0;
 	int i=0,op1=0,op2=0; //use i for tracking characters of infix and k for tracking characters in postfix
 	//step1 : read infix expression from left to right
@@ -36,7 +36,7 @@ int main(){
             op2 = pop(stack); //pop1 item is always operand 2
 			op1 = pop(stack); //pop2 item is always operand 1
 			
-			//b)Compute a ? b ( ? = operator) and push the result back to stack
+			//b)Compute op1 ? op2 ( ? = operator) and push the result back to stack
 			switch(postfix[i]){
 				case '+': result = op1 + op2 ; break;
 				case '-': result = op1 - op2 ; break;
