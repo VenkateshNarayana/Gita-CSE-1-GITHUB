@@ -33,11 +33,13 @@ void insert_at_head(int input_data){
 	struct node* new_node = create_node(input_data);
 	if(new_node==NULL) return; //memory allocation failed
 	if(head==NULL){
+		//if linked list is empty then make the new node as head and tail
 		head = new_node;
 		tail = new_node;
 	}else{
-		new_node->next = head;
-		head = new_node;
+		//if linked list is NOT empty then point new node to current head & move head to new node
+		new_node->next = head; //point new node to current head
+		head = new_node;       //move head to new node
 	}
 }
 struct node* create_node(int input_data){  
