@@ -235,6 +235,8 @@ void delete_at_position(int node_value){
 	}else{
 		//step 1: search for the node_value
 		struct node* temp = head;
+		//search for the delete node 
+		//approach 2 -> go directly to node to be deleted and mark it deleted node and node find one before node
 		while(temp!=NULL){
 			if(temp->data==node_value) break;
 			temp = temp->next;
@@ -243,15 +245,16 @@ void delete_at_position(int node_value){
 			printf("\nCannot find the node(%d) in the list!!",node_value);
 		}else{
 			//if node is found then perform the deletion
-			struct node* next_node   = temp->next;
-			struct node* prev_node   = temp->prev;
+			struct node* next_node   = temp->next; //next of deleted node
+			struct node* prev_node   = temp->prev; //previous of deleted node
 			
-			//step 2: point prev node next to next node
+			//step 2: point prev node's next to next node
 			prev_node->next = next_node; //store the temp->next's address in new node's next 
 			
-			//step 3: point next node prev to prev_node
+			//step 3: point next node's previous to prev_node
 			next_node->prev = prev_node; //point the next node's previous to temp
-			free(temp); //free the delete_node
+			
+			free(temp); //free the delete node(temp)
 			printf("\nDeleted node(%d) from position Successfully!!",node_value);
 		}
 	}
