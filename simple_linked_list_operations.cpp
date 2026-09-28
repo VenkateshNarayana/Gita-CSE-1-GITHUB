@@ -19,6 +19,7 @@ struct node* create_node(int); //param1 - input data to store the part1(data- wh
 //insert
 void insert_at_head(int input_data);
 void insert_at_tail(int input_data);
+void insert_at_position(int node_value,int input_data);
 
 //delete
 void delete_at_head();
@@ -41,6 +42,16 @@ int main(){
 	insert_at_tail(30);
 	traverse_list();
 	insert_at_tail(50);
+	traverse_list();
+	
+	//insert operation  - at position (before node 50)
+	insert_at_position(50,45);
+	traverse_list();
+	
+	insert_at_position(10,5);
+	traverse_list();
+	
+	insert_at_position(1000,1005);
 	traverse_list();
 	
 	//delete operations - at head
@@ -85,6 +96,36 @@ void insert_at_tail(int input_data){
 	}
 	printf("\nInserted %d (at tail)into linked list Successfully!!",input_data); 
 }
+void insert_at_position(int node_value,int input_data){
+	
+	if(head==NULL){
+		printf("\nList is empty..cannot find the position!!");
+	}else if (head->data==node_value){
+		insert_at_head(input_data);
+	}else{
+		//step 1: search for the node_value
+		struct node* temp = head;
+		while(temp->next!=NULL){
+			if (temp->next->data==node_value) break;
+			temp = temp->next; //move to next node and check for node value
+		}
+		if (temp->next==NULL){
+			printf("\nCannot find the node value in the list!!");
+		}else{
+			//if node is found then perform the insertion
+			//create a new node
+			struct node* new_node = create_node(input_data);
+		
+			if(new_node==NULL) return; //memory allocation failed
+			//step 2: point new node's next to temp's next
+			new_node->next = temp->next;
+			//step 3: point temp's next to new node
+			temp->next = new_node;
+			printf("\nInserted %d at position(%d) Successfully!!",input_data,node_value);
+		}
+	}
+}
+
 void delete_at_head(){
 	if(head==NULL){
 		//linked is empty
