@@ -21,6 +21,7 @@ void insert_at_tail(struct node** head,struct node** tail, int coeff,int exp);
 
 //perform polynomial addition
 void polynomial_add(struct node* p_head,struct node* q_head);
+void polynomial_multiply(struct node* p_head,struct node* q_head);
 
 //traverse
 void traverse_list(struct node* head);
@@ -48,7 +49,8 @@ int main(){
 	insert_at_tail(&q_head,&q_tail,6,0);
 	traverse_list(q_head);
 	
-	polynomial_add(p_head,q_head);
+//	polynomial_add(p_head,q_head);
+	polynomial_multiply(p_head,q_head);
 	
 	free_list(p_head);  //this our clean up activity to prevent memory leaks
 	free_list(q_head);  //this our clean up activity to prevent memory leaks
@@ -78,9 +80,23 @@ void insert_at_tail(struct node** head,struct node** tail,int coeff,int exp){
 		*head = new_node;
 		*tail = new_node;
 	}else{
-		//if linked list is NOT empty then point tail to the new node & move tail to new node
-		(*tail)->next = new_node; //point tail to new node 
-		*tail = new_node;       //move tail to new node
+		//check if the new node 's exp is existing in the list then add the new node to that term
+		//else append to the new term to the tail
+		struct node* temp=*head;
+		while(temp!=NULL){
+			if(temp->exp ==  new_node->exp){
+				//merge(add) the two
+				temp->coeff = temp->coeff + new_node->coeff;//addition of the coefficient when exponnent are same
+				break;
+			}
+			temp=temp->next;
+		}
+		//check if exponent was found
+		if(temp==NULL){
+			//if new node 's exponent is not found in the list then  append(insert in tail)
+			(*tail)->next = new_node; //point tail to new node 
+			*tail = new_node;       //move tail to new node
+		}
 	}
 	printf("\nInserted term(%d,%d) into polynomial Successfully!!",coeff,exp); 
 }
@@ -115,6 +131,32 @@ void polynomial_add(struct node* p_head,struct node* q_head){
 		insert_at_tail(&res_head,&res_tail,q_head->coeff,q_head->exp); //appending the term to res list
 		q_head = q_head->next; //move q to next node
 	}
+	traverse_list(res_head);
+	free_list(res_head);
+}
+void polynomial_multiply(struct node* p_head,struct node* q_head){
+	struct node* res_head = NULL; 
+	struct node* res_tail = NULL;
+	int coeff=0, exp=0;
+	struct node* temp1 = NULL;
+	struct node* temp2 = NULL;
+	
+	temp1 = p_head; //track p polynomial
+	while(temp1!=NULL){
+		temp2 = q_head; //track q polynomial	
+		while(temp2!=NULL){
+			//multiply the coefficient & add the exponents
+			coeff = temp1->coeff * temp2->coeff; //multiply the coefficients
+			exp   = temp1->exp   + temp2->exp;   //add the powers if base are same
+			insert_at_tail(&res_head,&res_tail,coeff,exp); //appending the term to res list
+			
+			//move to next node of q
+			temp2 = temp2->next;
+		}
+		//move to next node of p
+		temp1 = temp1->next;
+	}	
+	//print the result
 	traverse_list(res_head);
 	free_list(res_head);
 }
