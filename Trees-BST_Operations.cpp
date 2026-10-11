@@ -6,6 +6,7 @@ Operations - insert
 */
 #include <stdio.h>
 #include <stdlib.h>
+#define MAX 50
 struct node{
 	int data;
 	struct node* left;
@@ -22,6 +23,7 @@ struct node* find_leftmost(struct node* root);
 void preorder_traverse(struct node* root);
 void inorder_traverse(struct node* root);
 void postorder_traverse(struct node* root);
+void levelorder_traverse(struct node* root);
 
 //free tree nodes
 void free_tree(struct node* root);
@@ -34,13 +36,21 @@ int main(){
 		root = insert(root,arr[i]);
 	}
 	printf("\nInserted the data in tree successfully!!!");
-	printf("\nInorder Traversal ");
+	//perform inorder traversal(DFS)
+	printf("\nInorder Traversal(DFS) ");
 	inorder_traverse(root);
 	
-	printf("\nPreorder Traversal ");
+	//perform preorder traversal(DFS)
+	printf("\nPreorder Traversal(DFS) ");
 	preorder_traverse(root);
-	printf("\nPostorder Traversal ");
+	
+	//perform postorder traversal(DFS)
+	printf("\nPostorder Traversal(DFS) ");
 	postorder_traverse(root);
+	
+	//perform level order traversal(BFS)
+	printf("\nLevelorder Traversal ");
+	levelorder_traverse(root);
 	
 	/* Search */
 	struct node* temp;
@@ -157,7 +167,7 @@ struct node* find_leftmost(struct node* root){
     }
     return root;
 }
-void preorder_traverse(struct node *root) {
+void preorder_traverse(struct node* root) {
     if (root != NULL) {
 		printf("%d ", root->data);
         preorder_traverse(root->left);
@@ -165,7 +175,7 @@ void preorder_traverse(struct node *root) {
     }
 }
 
-void inorder_traverse(struct node *root) {
+void inorder_traverse(struct node* root) {
     if (root != NULL) {
         inorder_traverse(root->left);
         printf("%d ", root->data);
@@ -173,7 +183,7 @@ void inorder_traverse(struct node *root) {
     }
 }
 
-void postorder_traverse(struct node *root) {
+void postorder_traverse(struct node* root) {
     if (root != NULL) {
         postorder_traverse(root->left);
         postorder_traverse(root->right);
@@ -181,7 +191,39 @@ void postorder_traverse(struct node *root) {
         
     }
 }
-
+void levelorder_traverse(struct node* root){
+	//check if tree is not empty
+	if (root != NULL) {
+		int front =  0;
+		int rear  = -1;
+		struct node* q[MAX] = {NULL};
+		struct node* temp = NULL;
+		
+		//enqueue the root node in queue
+		q[++rear] = root;
+		
+		//perform BFS until Queue becomes empty
+		printf("\nBFS-PATH->");
+		while(front<=rear){//while queue is not empty
+			//deque the node in front
+			temp = q[front++];
+			printf("%d ",temp->data);
+			//traverse to adjacent nodes(visit left child and right child if any)
+			if (temp->left!=NULL){
+				//enqueue the adjacent vertex into queue
+				q[++rear] = temp->left;
+			}
+			if (temp->right!=NULL){
+				//enqueue the adjacent vertex into queue
+				q[++rear] = temp->right;
+			}
+		}
+		//traversal complete
+		printf("\n********************************");
+	}else{
+		printf("\nTree is empty cannot perform level order traversal!!");	
+	}
+}
 void free_tree(struct node *root){
     if (root == NULL) return;
 
