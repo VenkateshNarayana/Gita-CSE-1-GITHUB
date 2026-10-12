@@ -1,12 +1,21 @@
-/*Dijkstra's algorithm finds the shortest distance from one source vertex to every other vertex 
-	in a weighted graph, provided all edge weights are non-negative.
+/*Given a matrix dist[][] of size n x n, where dist[i][j] represents the weight of the edge from node i to node j.
+	a.If there is no direct edge, dist[i][j] is set to INF (a large value i.e., 10^8).
+	b.The diagonal entries dist[i][i] are 0, since the distance from a node to itself is zero.
+	c.The graph may contain negative edge weights, but it does not contain any negative weight cycles.
+Determine the shortest path distance between all pair of nodes in the graph.
+
 Algorithm
-	1.Initialize the source vertex distance to 0.
-	2.Initialize all other distances to INF (infinity).
-	3.Select the unvisited vertex with the smallest known distance.
-	4.Update the distances of its adjacent vertices if a shorter path is found.
-	5.Mark the selected vertex as visited.
-	6.Repeat until all reachable vertices have been processed.
+	1. Start by updating the distance matrix by treating each vertex as a possible intermediate node between 
+	all pairs of vertices.
+	2.Iterate through each vertex, one at a time. For each selected vertex k, attempt to improve the shortest paths 
+	that pass through it.
+	3.When we pick vertex number k as an intermediate vertex, we already have considered vertices {0, 1, 2, .. k-1} 
+	as intermediate vertices. 
+	4.For every pair (i, j) of the source and destination vertices respectively, there are two possible cases. 
+		a.k is not an intermediate vertex in shortest path from i to j. We keep the value of dist[i][j] as it is. 
+		b.k is an intermediate vertex in shortest path from i to j. We update the value of 
+		    dist[i][j] as dist[i][k] + dist[k][j], if dist[i][j] > dist[i][k] + dist[k][j]
+	7.Repeat this process for each vertex k until all intermediate possibilities have been considered.
 
 At every iteration, the algorithm checks whether the path from i to j becomes shorter by 
 passing through k.
@@ -19,7 +28,6 @@ Input : 4
 99999 	0     	3 		 99999
 99999 	99999 	0     	 1
 99999 	99999 	99999 	 0
-
 
 All-Pairs Shortest Distance Matrix:
 
@@ -36,7 +44,6 @@ Input : 4
 99999 	0     	1 		 99999
 4	 	99999 	0     	 99999
 99999 	2 		9	 	 0
-
 
 All-Pairs Shortest Distance Matrix:
 
